@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import postRouters from './routes/posts.js';
+import userRouters from './routes/users.js';
 
 const app = express();
 dotenv.config();
@@ -13,6 +14,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
 app.use('/posts', postRouters);
+app.use('/user', userRouters);
 // const CONNECTION_URL = 'mongodb+srv://social-media:12345678x%40X@cluster0.eivpxlk.mongodb.net/?retryWrites=true&w=majority';
 const PORT = process.env.PORT || 5000;
 
