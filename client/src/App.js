@@ -3,11 +3,12 @@ import React from 'react';
 
 import './App.css';
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { gapi } from 'gapi-script';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Auth from './components/Auth/Auth';
 import Home from './components/Home/Home';
 import Navbar from './components/Navbar/Navbar';
-import { gapi } from 'gapi-script';
+import PostDetails from './components/PostDetails/PostDetails';
 
 gapi.load("client:auth2", () => {
   gapi.client.init({
@@ -18,14 +19,18 @@ gapi.load("client:auth2", () => {
 });
 
 function App() {
+  const user = JSON.parse(localStorage.getItem('profile'));
 
   return (
     <BrowserRouter>
       <Container maxWidth="lg">
         <Navbar />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/auth" element={<Auth />} />
+          <Route path="/" element={<Navigate to="/posts" />} />
+          <Route path="/posts" element={<Home />} />
+          <Route path="/posts/search" element={<Home />} />
+          <Route path="/posts/:id" element={<PostDetails />} />
+          <Route path="/auth" element={(!user ? <Auth /> : <Navigate to="/posts" />)} />
         </Routes>
       </Container>
     </BrowserRouter>
