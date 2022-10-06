@@ -34,7 +34,7 @@ const Post = ({ post, setCurrentId }) => {
 
   return (
     <Card className={classes.card} raised elevation={6}>
-      <ButtonBase
+      <div
         className={classes.cardAction}
         onClick={openPost}
       >
@@ -45,7 +45,15 @@ const Post = ({ post, setCurrentId }) => {
         </div>
         {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
           <div className={classes.overlay2}>
-            <Button style={{ color: 'white' }} size="small" onClick={() => setCurrentId(post._id)}><MoreHorizIcon fontSize="medium" /></Button>
+            <Button
+              style={{ color: 'white' }}
+              size="small"
+              onClick={(e) => {
+                e.stopPropagation();
+                setCurrentId(post._id);
+              }}>
+              <MoreHorizIcon fontSize="medium" />
+            </Button>
           </div>
         )}
         <div className={classes.details}>
@@ -55,7 +63,7 @@ const Post = ({ post, setCurrentId }) => {
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">{post.message}</Typography>
         </CardContent>
-      </ButtonBase>
+      </div>
       <CardActions className={classes.cardActions}>
         <Button size="small" color="primary" onClick={() => dispatch(likePost(post._id))}>
           <Likes />
