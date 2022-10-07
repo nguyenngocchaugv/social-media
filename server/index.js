@@ -15,6 +15,10 @@ app.use(cors());
 
 app.use('/posts', postRouters);
 app.use('/user', userRouters);
+
+app.get('/', (req, res) => {
+  res.send('APP IS RUNNING.');
+})
 // const CONNECTION_URL = 'mongodb+srv://social-media:12345678x%40X@cluster0.eivpxlk.mongodb.net/?retryWrites=true&w=majority';
 const PORT = process.env.PORT || 5000;
 
